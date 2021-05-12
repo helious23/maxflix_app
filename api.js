@@ -28,14 +28,14 @@ export const movieApi = {
   upcoming: () => getAnything("/movie/upcoming", { region: "kr" }),
   search: (query) => getAnything("/serch/movie", { query }),
   movie: (id) => getAnything(`/movie/${id}`),
-  discover: () => getAnything("/movie/discover"),
+  discover: () => getAnything("/discover/movie"),
 };
 
 export const tvApi = {
   today: () => getAnything("/tv/airing_today"),
+  popular: () => getAnything("/tv/popular"),
   thisWeek: () => getAnything("/tv/on_the_air"),
   topRated: () => getAnything("/tv/top_rated"),
-  popular: () => getAnything("/tv/popular"),
   search: (query) => getAnything("/search/tv", { query }),
   show: (id) => getAnything(`/tv/${id}`),
 };
