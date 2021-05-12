@@ -10,20 +10,31 @@ const makeRequest = (path, params) =>
     },
   });
 
+const getAnything = async (path, params = {}) => {
+  try {
+    const {
+      data: { results },
+    } = await makeRequest(path, params);
+    return [results, null];
+  } catch (e) {
+    return [null, e];
+  }
+};
+
 export const movieApi = {
-  nowPlaying: () => makeRequest("/movie/now_playing"),
-  popular: () => makeRequest("/movie/popular"),
-  upcoming: () => makeRequest("/movie/upcoming", { region: "kr" }),
-  search: (query) => makeRequest("/serch/movie", { query }),
-  movie: (id) => makeRequest(`/movie/${id}`),
-  discover: () => makeRequest("/movie/discover"),
+  nowPlaying: () => getAnything("/movie/now_playing"),
+  popular: () => getAnything("/movie/popular"),
+  upcoming: () => getAnything("/movie/upcoming", { region: "kr" }),
+  search: (query) => getAnything("/serch/movie", { query }),
+  movie: (id) => getAnything(`/movie/${id}`),
+  discover: () => getAnything("/movie/discover"),
 };
 
 export const tvApi = {
-  today: () => makeRequest("/tv/airing_today"),
-  thisWeek: () => makeRequest("/tv/on_the_air"),
-  topRated: () => makeRequest("/tv/top_rated"),
-  popular: () => makeRequest("/tv/popular"),
-  search: (query) => makeRequest("/search/tv", { query }),
-  show: (id) => makeRequest(`/tv/${id}`),
+  today: () => getAnything("/tv/airing_today"),
+  thisWeek: () => getAnything("/tv/on_the_air"),
+  topRated: () => getAnything("/tv/top_rated"),
+  popular: () => getAnything("/tv/popular"),
+  search: (query) => getAnything("/search/tv", { query }),
+  show: (id) => getAnything(`/tv/${id}`),
 };
