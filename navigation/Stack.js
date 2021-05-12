@@ -3,21 +3,20 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-import Home from "../screens/Home";
 import Detail from "../screens/Detail";
+import Tabs from "./Tabs";
 
 const Stack = createStackNavigator();
 
 export default () => (
   <Stack.Navigator>
+    <Stack.Screen name="Tabs" component={Tabs} />
     <Stack.Screen
-      name="Home"
-      component={Home}
+      name="Detail"
+      component={Detail}
       options={{
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         animationEnabled: true,
       }}
     />
-    <Stack.Screen name="Detail" component={Detail} />
   </Stack.Navigator>
 );
