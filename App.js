@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
-import { Image, Text } from "react-native";
+import { Image } from "react-native";
 import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import Stack from "./navigation/Stack";
 
 const casheImages = (images) =>
   images.map((image) => {
@@ -27,7 +29,9 @@ export default function App() {
   };
   const onFinish = () => setIsReady(true);
   return isReady ? (
-    <Text>Ready!</Text>
+    <NavigationContainer>
+      <Stack />
+    </NavigationContainer>
   ) : (
     <AppLoading
       startAsync={loadAssets}
