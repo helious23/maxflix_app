@@ -14,13 +14,13 @@ const SlideContainer = styled.View`
   margin-bottom: 50px;
 `;
 
-const Container = styled.View``;
+const Container = styled.View`
+  width: ${WIDTH}px;
+`;
 
 export default ({ loading, nowPlaying, popular }) => (
   <ScrollView
-    style={{
-      backgroundColor: "black",
-    }}
+    style={{ backgroundColor: "black" }}
     contentContainerStyle={{
       flex: 1,
       justifyContent: loading ? "center" : "flex-start",
@@ -36,7 +36,7 @@ export default ({ loading, nowPlaying, popular }) => (
               <Slide
                 key={movie.id}
                 id={movie.id}
-                title={movie.original_title}
+                title={movie.title}
                 overview={movie.overview}
                 votes={movie.vote_average}
                 backgroundImage={movie.backdrop_path}
@@ -47,12 +47,18 @@ export default ({ loading, nowPlaying, popular }) => (
         </SlideContainer>
         <Container>
           <Title title={"Popular Movies"} />
-          <ScrollView horizontal>
+          <ScrollView
+            style={{ marginTop: 20 }}
+            contentContainerStyle={{ paddingLeft: 20 }}
+            horizontal
+            scrollEnabled
+            showsHorizontalScrollIndicator={false}
+          >
             {popular.map((movie) => (
               <Vertical
                 key={movie.id}
                 poster={movie.poster_path}
-                title={movie.original_title}
+                title={movie.title}
                 votes={movie.vote_average}
               />
             ))}
