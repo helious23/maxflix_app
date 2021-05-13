@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
-import { tvApi } from "../api";
+import { tvApi } from "../../api";
+import TvPresneter from "./TvPresentor";
 
 export default () => {
   const [shows, setShows] = useState({
+    loading: true,
     today: [],
     popular: [],
     thisWeek: [],
@@ -13,13 +14,13 @@ export default () => {
     thisWeekError: null,
     topRatedError: null,
   });
-
   const getData = async () => {
     const [today, todayError] = await tvApi.today();
     const [popular, popularError] = await tvApi.popular();
     const [thisWeek, thisWeekError] = await tvApi.thisWeek();
     const [topRated, topRatedError] = await tvApi.topRated();
     setShows({
+      loading: false,
       today,
       popular,
       thisWeek,
@@ -33,9 +34,5 @@ export default () => {
   useEffect(() => {
     getData();
   }, []);
-  return (
-    <View style={{ backgroundColor: "black", flex: 1 }}>
-      <Text style={{ color: "white" }}>{shows.today?.length}</Text>
-    </View>
-  );
+  return <TvPresneter {...shows} />;
 };
