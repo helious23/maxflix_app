@@ -1,46 +1,31 @@
 import React from "react";
 import styled from "styled-components/native";
-import Swiper from "react-native-web-swiper";
-import { Dimensions, ScrollView } from "react-native";
-import Slide from "../../components/Movies/Slide";
-import Title from "../../components/Title";
+import Slide from "../../components/Slide";
 import Vertical from "../../components/Vertical";
 import Horizontal from "../../components/Horizontal";
 import ScrollContainer from "../../components/ScrollContainer";
 import HorizontalSlider from "../../components/HorizontalSlider";
-
-const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
-
-const SlideContainer = styled.View`
-  width: 100%;
-  height: ${HEIGHT / 4}px;
-  margin-bottom: 50px;
-`;
+import Slider from "../../components/Slider";
+import List from "../../components/List";
 
 const Container = styled.View``;
-
-const UpcomingContainer = styled.View`
-  margin-top: 20px;
-`;
 
 export default ({ loading, nowPlaying, popular, upcoming }) => (
   <ScrollContainer loading={loading}>
     <>
-      <SlideContainer>
-        <Swiper controlsEnabled={false} loop timeout={3} height>
-          {nowPlaying.map((movie) => (
-            <Slide
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              overview={movie.overview}
-              votes={movie.vote_average}
-              backgroundImage={movie.backdrop_path}
-              poster={movie.poster_path}
-            />
-          ))}
-        </Swiper>
-      </SlideContainer>
+      <Slider>
+        {nowPlaying.map((movie) => (
+          <Slide
+            key={movie.id}
+            id={movie.id}
+            title={movie.title}
+            overview={movie.overview}
+            votes={movie.vote_average}
+            backgroundImage={movie.backdrop_path}
+            poster={movie.poster_path}
+          />
+        ))}
+      </Slider>
       <Container>
         <HorizontalSlider title={"Popular Movies"}>
           {popular.map((movie) => (
@@ -53,8 +38,7 @@ export default ({ loading, nowPlaying, popular, upcoming }) => (
             />
           ))}
         </HorizontalSlider>
-        <Title title={"Coming Soon"}></Title>
-        <UpcomingContainer>
+        <List title={"Comming Soon"}>
           {upcoming.map((movie) => (
             <Horizontal
               key={movie.id}
@@ -65,7 +49,7 @@ export default ({ loading, nowPlaying, popular, upcoming }) => (
               overview={movie.overview}
             />
           ))}
-        </UpcomingContainer>
+        </List>
       </Container>
     </>
   </ScrollContainer>
