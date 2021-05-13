@@ -17,8 +17,8 @@ export default () => {
   const getData = async () => {
     const [today, todayError] = await tvApi.today();
     const [popular, popularError] = await tvApi.popular();
-    const [thisWeek, thisWeekError] = await tvApi.thisWeek();
     const [topRated, topRatedError] = await tvApi.topRated();
+    const [thisWeek, thisWeekError] = await tvApi.thisWeek();
     setShows({
       loading: false,
       today,
