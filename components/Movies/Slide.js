@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
-import { apiImage } from "../../api";
-import Poster from "../Poster";
 import { TouchableOpacity } from "react-native";
+import { apiImage } from "../../api";
+import { trimText } from "../../utils";
+import Poster from "../Poster";
 import Votes from "../Votes";
 
 const Container = styled.View`
@@ -62,15 +63,13 @@ const Slide = ({ id, title, backgroundImage, votes, overview, poster }) => (
   <Container>
     <BG resizeMode="cover" source={{ uri: apiImage(backgroundImage) }} />
     <Content>
-      <Poster url={apiImage(poster)} />
+      <Poster url={poster} />
       <Data>
-        <Title>{title.length > 30 ? `${title.slice(0, 30)} ...` : title}</Title>
+        <Title>{trimText(title, 30)}</Title>
         <VotesContainer>
           <Votes votes={votes} />
         </VotesContainer>
-        <Overview>
-          {overview.length > 100 ? `${overview.slice(0, 100)}...` : overview}
-        </Overview>
+        <Overview>{trimText(overview, 100)}</Overview>
         <TouchableOpacity>
           <Button>
             <ButtonText>View Details</ButtonText>
