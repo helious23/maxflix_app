@@ -1,24 +1,30 @@
 import React from "react";
 import styled from "styled-components/native";
 import Swiper from "react-native-web-swiper";
-import { ActivityIndicator, Dimensions, View } from "react-native";
+import { ActivityIndicator, Dimensions, ScrollView, View } from "react-native";
 import Slide from "../../components/Movies/Slide";
+import Title from "../../components/Title";
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get("screen");
-
-const Container = styled.View`
-  flex: 1;
-  background-color: black;
-  justify-content: center;
-`;
+const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 
 const SlideContainer = styled.View`
   width: ${WIDTH}px;
   height: ${HEIGHT / 4}px;
+  margin-bottom: 50px;
 `;
 
+const Container = styled.View``;
+
 export default ({ loading, nowPlaying }) => (
-  <Container>
+  <ScrollView
+    style={{
+      backgroundColor: "black",
+    }}
+    contentContainerStyle={{
+      flex: 1,
+      justifyContent: loading ? "center" : "flex-start",
+    }}
+  >
     {loading ? (
       <ActivityIndicator size="small" color="white" /> // loading : true 일 때 모래시계
     ) : (
@@ -38,7 +44,10 @@ export default ({ loading, nowPlaying }) => (
             ))}
           </Swiper>
         </SlideContainer>
+        <Container>
+          <Title title={"Popular Movies"} />
+        </Container>
       </>
     )}
-  </Container>
+  </ScrollView>
 );

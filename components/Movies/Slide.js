@@ -39,6 +39,7 @@ const Title = styled.Text`
 const Votes = styled.Text`
   color: rgb(220, 220, 220);
   margin-bottom: 5px;
+  font-weight: 500;
   font-size: 12px;
 `;
 
