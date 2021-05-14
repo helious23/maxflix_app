@@ -6,6 +6,7 @@ import { apiImage } from "../../api";
 import Poster from "../../components/Poster";
 import ScrollContainer from "../../components/ScrollContainer";
 import Votes from "../../components/Votes";
+import { formatDate } from "../../utils";
 
 const BG = styled.Image`
   width: 100%;
@@ -39,11 +40,12 @@ const Info = styled.View`
 `;
 
 const Data = styled.View`
-  margin-top: 60px;
+  margin-top: 30px;
   padding: 0px 30px;
 `;
 
 const DataName = styled.Text`
+  margin-top: 30px;
   color: white;
   opacity: 0.8;
   font-weight: 800;
@@ -65,20 +67,34 @@ export default ({ result, loading }) => (
           <Poster url={result.poster} />
           <Info>
             <Title>{result.title}</Title>
-            {result.votes && <Votes votes={result.votes} />}
+            {result.votes ? <Votes votes={result.votes} /> : null}
           </Info>
         </Container>
       </Header>
       <Data>
-        {result.overview && (
+        {result.overview ? (
           <>
             <DataName>Overview</DataName>
             <DataValue>{result.overview}</DataValue>
           </>
-        )}
+        ) : null}
         {loading && (
           <ActivityIndicator color={"white"} style={{ marginTop: 30 }} />
         )}
+        {result.spoken_languages ? (
+          <>
+            <DataName>Languages</DataName>
+            <DataValue>
+              {result.spoken_languages.map((l) => `${l.name} `)}
+            </DataValue>
+          </>
+        ) : null}
+        {result.release_date ? (
+          <>
+            <DataName>Release Date</DataName>
+            <DataValue>{formatDate(result.release_date)}</DataValue>
+          </>
+        ) : null}
       </Data>
     </>
   </ScrollContainer>
