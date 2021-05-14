@@ -27,7 +27,7 @@ export default ({ loading, popular, topRated, today, thisWeek }) => (
             />
           ))}
         </HorizontalSlider>
-        <Slider title="Airing Today">
+        <Slider title="This Weeks">
           {thisWeek.map((show) => (
             <Slide
               key={show.id}

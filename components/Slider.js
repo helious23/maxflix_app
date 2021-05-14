@@ -15,7 +15,7 @@ const Container = styled.View`
 
 const Slider = ({ title, children }) => (
   <Container>
-    <Title title={title} />
+    {title && <Title title={title} />}
     <Swiper controlsEnabled={false} loop timeout={3} height>
       {children}
     </Swiper>
