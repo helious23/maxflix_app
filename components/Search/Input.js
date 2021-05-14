@@ -5,6 +5,9 @@ import { onChange } from "react-native-reanimated";
 
 const TextInput = styled.TextInput`
   background-color: white;
+  margin: 20px 30px;
+  padding: 10px 20px;
+  border-radius: 15px;
 `;
 
 const Input = ({ placeholder, value, onChange, onSubmit }) => (

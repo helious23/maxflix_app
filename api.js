@@ -26,7 +26,7 @@ export const movieApi = {
   nowPlaying: () => getAnything("/movie/now_playing"),
   popular: () => getAnything("/movie/popular"),
   upcoming: () => getAnything("/movie/upcoming", { region: "kr" }),
-  search: (query) => getAnything("/serch/movie", { query }),
+  search: (query) => getAnything("/search/movie", { query }),
   movie: (id) => getAnything(`/movie/${id}`),
   discover: () => getAnything("/discover/movie"),
 };
