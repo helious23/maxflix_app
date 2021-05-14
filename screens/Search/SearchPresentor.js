@@ -10,7 +10,11 @@ const Container = styled.ScrollView`
 `;
 
 export default ({ movies, shows, keyword, onChange, onSubmit }) => (
-  <ScrollContainer>
+  <ScrollContainer
+    refreshFn={onSubmit}
+    loading={false}
+    contentContainerStyle={{}}
+  >
     <Input
       placeholder={"Write a keyword"}
       value={keyword}

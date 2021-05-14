@@ -10,8 +10,8 @@ import List from "../../components/List";
 
 const Container = styled.View``;
 
-export default ({ loading, nowPlaying, popular, upcoming }) => (
-  <ScrollContainer loading={loading}>
+export default ({ refreshFn, loading, nowPlaying, popular, upcoming }) => (
+  <ScrollContainer refreshFn={refreshFn} loading={loading}>
     <>
       <Slider>
         {nowPlaying.map((movie) => (
