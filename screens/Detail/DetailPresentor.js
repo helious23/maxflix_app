@@ -59,7 +59,10 @@ const DataValue = styled.Text`
 `;
 
 export default ({ result, loading }) => (
-  <ScrollContainer>
+  <ScrollContainer
+    loading={false}
+    contentContainerStyle={{ paddingBottom: 80 }}
+  >
     <>
       <Header>
         <BG source={{ uri: apiImage(result.backgroundImage, "-") }} />
@@ -93,6 +96,42 @@ export default ({ result, loading }) => (
           <>
             <DataName>Release Date</DataName>
             <DataValue>{formatDate(result.release_date)}</DataValue>
+          </>
+        ) : null}
+        {result.status ? (
+          <>
+            <DataName>Status</DataName>
+            <DataValue>{result.status}</DataValue>
+          </>
+        ) : null}
+        {result.runtime ? (
+          <>
+            <DataName>Runtime</DataName>
+            <DataValue>{result.runtime} minutes </DataValue>
+          </>
+        ) : null}
+        {result.first_air_date ? (
+          <>
+            <DataName>First Air Date</DataName>
+            <DataValue>{formatDate(result.first_air_date)}</DataValue>
+          </>
+        ) : null}
+        {result.genres ? (
+          <>
+            <DataName>Genres</DataName>
+            <DataValue>
+              {result.genres.map((g, index) =>
+                index === result.genres.length - 1 ? g.name : `${g.name}, `
+              )}
+            </DataValue>
+          </>
+        ) : null}
+        {result.number_of_episodes || result.number_of_seasons ? (
+          <>
+            <DataName>Seasons / Episodes</DataName>
+            <DataValue>
+              {result.number_of_seasons} / {result.number_of_episodes}{" "}
+            </DataValue>
           </>
         ) : null}
       </Data>
