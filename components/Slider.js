@@ -3,7 +3,6 @@ import styled from "styled-components/native";
 import PropTypes from "prop-types";
 import { Dimensions } from "react-native";
 import Swiper from "react-native-web-swiper";
-import Title from "./Title";
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 
@@ -13,9 +12,8 @@ const Container = styled.View`
   margin-bottom: 50px;
 `;
 
-const Slider = ({ title, children }) => (
+const Slider = ({ children }) => (
   <Container>
-    {title && <Title title={title} />}
     <Swiper controlsEnabled={false} loop timeout={3} height>
       {children}
     </Swiper>

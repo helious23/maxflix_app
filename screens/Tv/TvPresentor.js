@@ -8,26 +8,13 @@ import Horizontal from "../../components/Horizontal";
 import Slider from "../../components/Slider";
 import Slide from "../../components/Slide";
 
-const Container = styled.View`
-  margin-top: 30px;
-`;
+const Container = styled.View``;
 
 export default ({ refreshFn, loading, popular, topRated, today, thisWeek }) => (
   <ScrollContainer refreshFn={refreshFn} loading={loading}>
     <>
       <Container>
-        <HorizontalSlider title="Popular Shows">
-          {popular.map((show) => (
-            <Vertical
-              id={show.id}
-              key={show.id}
-              poster={show.poster_path}
-              title={show.name}
-              votes={show.vote_average}
-            />
-          ))}
-        </HorizontalSlider>
-        <Slider title="This Weeks">
+        <Slider>
           {thisWeek.map((show) => (
             <Slide
               key={show.id}
@@ -40,6 +27,17 @@ export default ({ refreshFn, loading, popular, topRated, today, thisWeek }) => (
             />
           ))}
         </Slider>
+        <HorizontalSlider title="Popular Shows">
+          {popular.map((show) => (
+            <Vertical
+              id={show.id}
+              key={show.id}
+              poster={show.poster_path}
+              title={show.name}
+              votes={show.vote_average}
+            />
+          ))}
+        </HorizontalSlider>
         <HorizontalSlider title="Top Rated">
           {topRated.map((show) => (
             <Vertical
