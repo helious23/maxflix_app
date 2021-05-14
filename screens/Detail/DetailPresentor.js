@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { Dimensions } from "react-native";
+import { ActivityIndicator, Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { apiImage } from "../../api";
 import Poster from "../../components/Poster";
@@ -33,12 +33,12 @@ const Title = styled.Text`
   margin-bottom: 10px;
 `;
 
-const Info = styled.Text`
+const Info = styled.View`
   width: 50%;
   margin-left: 40px;
 `;
 
-const Data = styled.Text`
+const Data = styled.View`
   margin-top: 80px;
   padding: 0px 30px;
 `;
@@ -56,25 +56,28 @@ const DataValue = styled.Text`
   font-weight: 500;
 `;
 
-export default ({ backgroundImage, title, votes, overview, poster }) => (
+export default ({ movie, loading }) => (
   <ScrollContainer loading={false}>
     <>
       <Header>
-        <BG source={{ uri: apiImage(backgroundImage, "-") }} />
+        <BG source={{ uri: apiImage(movie.backgroundImage, "-") }} />
         <Container>
-          <Poster url={poster} />
+          <Poster url={movie.poster} />
           <Info>
-            <Title>{title}</Title>
-            {votes && <Votes votes={votes} />}
+            <Title>{movie.title}</Title>
+            {movie.votes && <Votes votes={movie.votes} />}
           </Info>
         </Container>
       </Header>
       <Data>
-        {overview && (
+        {movie.overview && (
           <>
             <DataName>Overview</DataName>
-            <DataValue>{overview}</DataValue>
+            <DataValue>{movie.overview}</DataValue>
           </>
+        )}
+        {loading && (
+          <ActivityIndicator color={"white"} style={{ marginTop: 30 }} />
         )}
       </Data>
     </>
