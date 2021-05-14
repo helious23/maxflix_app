@@ -39,7 +39,7 @@ const Info = styled.View`
 `;
 
 const Data = styled.View`
-  margin-top: 80px;
+  margin-top: 60px;
   padding: 0px 30px;
 `;
 
@@ -47,7 +47,7 @@ const DataName = styled.Text`
   color: white;
   opacity: 0.8;
   font-weight: 800;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 `;
 
 const DataValue = styled.Text`
@@ -56,24 +56,24 @@ const DataValue = styled.Text`
   font-weight: 500;
 `;
 
-export default ({ movie, loading }) => (
-  <ScrollContainer loading={false}>
+export default ({ result, loading }) => (
+  <ScrollContainer>
     <>
       <Header>
-        <BG source={{ uri: apiImage(movie.backgroundImage, "-") }} />
+        <BG source={{ uri: apiImage(result.backgroundImage, "-") }} />
         <Container>
-          <Poster url={movie.poster} />
+          <Poster url={result.poster} />
           <Info>
-            <Title>{movie.title}</Title>
-            {movie.votes && <Votes votes={movie.votes} />}
+            <Title>{result.title}</Title>
+            {result.votes && <Votes votes={result.votes} />}
           </Info>
         </Container>
       </Header>
       <Data>
-        {movie.overview && (
+        {result.overview && (
           <>
             <DataName>Overview</DataName>
-            <DataValue>{movie.overview}</DataValue>
+            <DataValue>{result.overview}</DataValue>
           </>
         )}
         {loading && (
