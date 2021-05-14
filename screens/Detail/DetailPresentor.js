@@ -136,13 +136,32 @@ export default ({ openBrowser, result, loading }) => (
           </>
         ) : null}
         {result.imdb_id ? (
-          <Link
-            text={"IMDB Pages"}
-            icon={"imdb"}
-            onPress={() =>
-              openBrowser(`https://www.imdb.com/title/${result.imdb_id}`)
-            }
-          />
+          <>
+            <DataName>Links</DataName>
+            <Link
+              key={result.imdb_id}
+              text={"IMDB Pages"}
+              icon={"imdb"}
+              onPress={() =>
+                openBrowser(`https://www.imdb.com/title/${result.imdb_id}`)
+              }
+            />
+          </>
+        ) : null}
+        {result.videos.results?.length > 0 ? (
+          <>
+            <DataName>Videos</DataName>
+            {result.videos.results.map((video) => (
+              <Link
+                text={video.name}
+                key={video.id}
+                icon="youtube-play"
+                onPress={() =>
+                  openBrowser(`https://www.youtube.com/watch?v=${video.key}`)
+                }
+              />
+            ))}
+          </>
         ) : null}
       </Data>
     </>
