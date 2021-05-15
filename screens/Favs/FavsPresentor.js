@@ -14,7 +14,7 @@ const Container = styled.View`
 `;
 
 const style = {
-  top: 80,
+  top: 40,
   height: HEIGHT / 1.5,
   width: "90%",
   position: "absolute",
@@ -28,26 +28,47 @@ const Poster = styled.Image`
 `;
 export default ({ results }) => {
   const [topIndex, setTopIndex] = useState(0);
-  const position = new Animated.ValueXY();
+  const nextCard = () => setTopIndex((currentValue) => currentValue + 1);
+  const position = new Animated.ValueXY(); // animation 적용 될 obj의 x,y 값을 가지고 있음
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
     onPanResponderMove: (evt, { dx, dy }) => {
-      position.setValue({ x: dx, y: dy });
+      position.setValue({ x: dx, y: dy }); // position의 x, y 값을 dx, dy 로 설정
     },
-    onPanResponderRelease: () => {
-      Animated.spring(position, {
-        toValue: {
-          x: 0,
-          y: 0,
-        },
-        useNativeDriver: true,
-      }).start();
+    onPanResponderRelease: (evt, { dx, dy }) => {
+      if (dx >= 250) {
+        Animated.spring(position, {
+          toValue: {
+            x: WIDTH + 100,
+            y: dy,
+          },
+          useNativeDriver: true,
+        }).start(nextCard);
+      } else if (dx <= -250) {
+        Animated.spring(position, {
+          toValue: {
+            x: -WIDTH - 100,
+            y: dy,
+          },
+          useNativeDriver: true,
+        }).start(nextCard);
+      } else {
+        Animated.spring(position, {
+          toValue: {
+            // 드래그가 끝나면 (0, 0) 으로 부드럽게 돌아감
+            x: 0,
+            y: 0,
+          },
+          useNativeDriver: true, // 실행 시 필수 설정
+        }).start(); // 애니메이션 시작
+      }
     },
   });
   const rotationValues = position.x.interpolate({
+    // porition 의 x 값을 range 안에서 바꿔줌
     inputRange: [-250, 0, 250],
     outputRange: ["-10deg", "0deg", "10deg"],
-    extrapolate: "clamp",
+    extrapolate: "clamp", // 최소 최대치 고정
   });
   const secondCardOpacity = position.x.interpolate({
     inputRange: [-250, 0, 250],
@@ -63,7 +84,10 @@ export default ({ results }) => {
   return (
     <Container>
       {results.map((result, index) => {
-        if (index === topIndex) {
+        if (index < topIndex) {
+          return null;
+        } else if (index === topIndex) {
+          // 첫 번째 카드
           return (
             <Animated.View
               style={{
@@ -81,6 +105,7 @@ export default ({ results }) => {
             </Animated.View>
           );
         } else if (index === topIndex + 1) {
+          // 두 번째 카드
           return (
             <Animated.View
               style={{
@@ -97,6 +122,7 @@ export default ({ results }) => {
           );
         } else {
           return (
+            // 나머지 카드
             <Animated.View
               style={{
                 ...style,

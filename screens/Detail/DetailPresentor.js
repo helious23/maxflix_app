@@ -59,8 +59,9 @@ const DataValue = styled.Text`
   font-weight: 500;
 `;
 
-export default ({ openBrowser, result, loading }) => (
+export default ({ refreshFn, openBrowser, result, loading }) => (
   <ScrollContainer
+    refreshFn={refreshFn}
     loading={false}
     contentContainerStyle={{ paddingBottom: 80 }}
   >

@@ -51,5 +51,11 @@ export default ({
   const openBrowser = async (url) => {
     await WebBrowser.openBrowserAsync(url);
   };
-  return <DetailPresentor {...detail} openBrowser={openBrowser} />;
+  return (
+    <DetailPresentor
+      {...detail}
+      openBrowser={openBrowser}
+      refreshFn={getData}
+    />
+  );
 };
