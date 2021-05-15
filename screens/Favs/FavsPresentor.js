@@ -51,7 +51,7 @@ export default ({ results }) => {
             y: dy,
           },
           useNativeDriver: true,
-        }).start(nextCard);
+        }).start(nextCard); // callback 함수 호출 가능
       } else {
         Animated.spring(position, {
           toValue: {
@@ -85,6 +85,7 @@ export default ({ results }) => {
     <Container>
       {results.map((result, index) => {
         if (index < topIndex) {
+          // 버린 카드가 topindex 보다 낮은 index 를 가지므로 랜더링 하지 않음
           return null;
         } else if (index === topIndex) {
           // 첫 번째 카드
