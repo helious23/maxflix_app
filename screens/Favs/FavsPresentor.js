@@ -45,8 +45,18 @@ export default ({ results }) => {
     },
   });
   const rotationValues = position.x.interpolate({
-    inputRange: [-100, 0, 100],
-    outputRange: ["-5deg", "0deg", "5deg"],
+    inputRange: [-250, 0, 250],
+    outputRange: ["-10deg", "0deg", "10deg"],
+    extrapolate: "clamp",
+  });
+  const secondCardOpacity = position.x.interpolate({
+    inputRange: [-250, 0, 250],
+    outputRange: [1, 0.2, 1],
+    extrapolate: "clamp",
+  });
+  const secondCardScale = position.x.interpolate({
+    inputRange: [-250, 0, 250],
+    outputRange: [1, 0.8, 1],
     extrapolate: "clamp",
   });
 
@@ -70,20 +80,36 @@ export default ({ results }) => {
               <Poster source={{ uri: apiImage(result.poster_path) }} />
             </Animated.View>
           );
+        } else if (index === topIndex + 1) {
+          return (
+            <Animated.View
+              style={{
+                ...style,
+                zIndex: -index,
+                opacity: secondCardOpacity,
+                transform: [{ scale: secondCardScale }],
+              }}
+              key={result.id}
+              {...panResponder.panHandlers}
+            >
+              <Poster source={{ uri: apiImage(result.poster_path) }} />
+            </Animated.View>
+          );
+        } else {
+          return (
+            <Animated.View
+              style={{
+                ...style,
+                zIndex: -index,
+                opacity: 0,
+              }}
+              key={result.id}
+              {...panResponder.panHandlers}
+            >
+              <Poster source={{ uri: apiImage(result.poster_path) }} />
+            </Animated.View>
+          );
         }
-        return (
-          <Animated.View
-            style={{
-              ...style,
-              //   top: 80 + 10 * index,
-              zIndex: -index,
-            }}
-            key={result.id}
-            {...panResponder.panHandlers}
-          >
-            <Poster source={{ uri: apiImage(result.poster_path) }} />
-          </Animated.View>
-        );
       })}
     </Container>
   );
