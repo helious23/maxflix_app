@@ -25,7 +25,7 @@ const getAnything = async (path, params = {}) => {
 export const movieApi = {
   nowPlaying: () => getAnything("/movie/now_playing"),
   popular: () => getAnything("/movie/popular"),
-  upcoming: () => getAnything("/movie/upcoming", { region: "kr" }),
+  upcoming: () => getAnything("/movie/upcoming", { region: "br" }),
   search: (query) => getAnything("/search/movie", { query }),
   movie: (id) => getAnything(`/movie/${id}`, { append_to_response: "videos" }),
   discover: () => getAnything("/discover/movie"),
@@ -34,7 +34,7 @@ export const movieApi = {
 export const tvApi = {
   today: () => getAnything("/tv/airing_today"),
   popular: () => getAnything("/tv/popular"),
-  thisWeek: () => getAnything("/tv/on_the_air"),
+  thisWeek: () => getAnything("/tv/on_the_air", { region: "br" }),
   topRated: () => getAnything("/tv/top_rated"),
   search: (query) => getAnything("/search/tv", { query }),
   show: (id) => getAnything(`/tv/${id}`, { append_to_response: "videos" }),
